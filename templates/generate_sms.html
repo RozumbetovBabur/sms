@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block generate_sms %}
+<div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <h2>📩 Generatsiya SMS</h2>
+
+                    <form method="post" action="{% url 'generate_sms' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Generatsiya</button>
+                    </form>
+                </div>
+</div>
+{% endblock generate_sms %}
+

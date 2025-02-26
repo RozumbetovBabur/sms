@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block send_sms %}
+    <section class="container">
+            <div class="row justify-content-around text-center text-white mt-5">
+                <div class="col-sm-8">
+                    <h3>SMS Jeberiw bo'limi</h3>
+                </div>
+            </div>
+            <div class="row justify-content-around mt-3">
+                <div class="col-sm-12">
+<!--                    <a href="#" class="btn btn-primary float-end">Add</a>-->
+         <!-- Modal start -->
+<button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+   Jeberiw sms
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Заполните раздел ввода данных</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- POST so'rovi yuborish uchun forma -->
+        <form action="" method="POST">
+              <!-- CSRF tokeni himoya uchun kerak -->
+               <!-- Forma maydonlari -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+              <button type="submit" class="btn btn-primary">Сохранять</button>  <!-- Bu yerda 'submit' -->
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal end -->
+
+                </div>
+            </div>
+
+            <div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <table class="table table-hover">
+                       <thead>
+                            <tr>
+                              <th scope="col">№</th>
+                              <th scope="col">Кабина</th>
+                              <th scope="col">Столь</th>
+                              <th scope="col">Тури</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>Kabinet</td>
+                              <td>2</td>
+                              <td>3</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <form action="#" method="POST">
+
+                                                    <input type="hidden" class="btn btn-danger btn-sm" name="id" value="">
+                                                    <input type="submit" class="btn btn-danger btn-sm" value="Удалить">
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn btn-info btn-sm">Изменять</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+{% endblock send_sms %}

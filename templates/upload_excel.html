@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block send_list %}
+<div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <h2>📩 Excel fayldi juklew bo'limi</h2>
+                </div>
+                <div class="col-sm-12 mt-5">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" name="file" required>
+                        <button type="submit">Juklew</button>
+                    </form>
+                </div>
+
+                <div class="col-sm-12 mt-5">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+</div>
+{% endblock send_list %}
+

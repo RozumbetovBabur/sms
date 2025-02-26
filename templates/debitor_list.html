@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block send_list %}
+<div class="row justify-content-around mt-4 text-center">
+                <div class="bg-light rounded h-100 p-4">
+                    <h2>📩 Excelldegi kelip tusken kestesi</h2>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Ijro Ish Raqami</th>
+                                    <th scope="col">Ijro Hujjat Raqami</th>
+                                    <th scope="col">Ijro Hujjat Mazmuni</th>
+                                    <th scope="col">Ijro Hujjati Summasi</th>
+                                    <th scope="col">Qarzdor F.I.SH</th>
+                                    <th scope="col">Telefon Raqami</th>
+                                    <th scope="col">Operator F.I.SH</th>
+                                    <th scope="col">Operator Telefon Raqami</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for debitor in debitors %}
+                                <tr>
+                                    <td scope="row">{{ forloop.counter }}</td>
+                                    <td>{{ debitor.ijro_ish_raqami }}</td>
+                                    <td>{{ debitor.ijro_hujjat_raqami }}</td>
+                                    <td>{{ debitor.ijro_hujjat_mazmuni }}</td>
+                                    <td>{{ debitor.ijro_hujjat_summasi }}</td>
+                                    <td>{{ debitor.qarzdor_fish }}</td>
+                                    <td>{{ debitor.telefon_raqami }}</td>
+                                    <td>{{ debitor.operator_fish }}</td>
+                                    <td>{{ debitor.operator_telefon_raqami }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="9" class="text-center">Hazirshe malumat joq</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+</div>
+{% endblock send_list %}
+

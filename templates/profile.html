@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block profile %}
+    <div class="container">
+        <h2>Profildi o'zgertiriw bo'limi</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">jan'alaw</button>
+        </form>
+    </div>
+{% endblock profile %}

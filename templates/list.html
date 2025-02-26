@@ -1,0 +1,94 @@
+<!--Bul bet shornavek esabinda qolanilip atir-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <table class="table table-hover">
+                       <thead>
+                            <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">SELECTED</th>
+                              <th scope="col">IJRO RAQAMI</th>
+                              <th scope="col">MAZMUNI</th>
+                                <th scope="col">QARZI</th>
+                                <th scope="col">F.I.O USER</th>
+                                <th scope="col">PASPORT USER</th>
+                                <th scope="col">TELEFON RAQAMI USER</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                            <tr>
+                              <th scope="row">1</th>
+                              <td>S</td>
+                              <td>230122011456</td>
+                              <td>Sizde qarz bar</td>
+                                <td>350 so'm</td>
+                                <td>JOLDASBAEV FARXAT DANIYAROVICH</td>
+                                <td>AD 123456</td>
+                                <td>+998934562514</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <form action="#" method="POST">
+
+                                                    <input type="hidden" class="btn btn-danger btn-sm" name="id" value="">
+                                                    <input type="submit" class="btn btn-danger btn-sm" value="Удалить">
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn btn-info btn-sm">Изменять</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+</body>
+</html>
+
+# SMS Dizimi
+<h3>📋 Jo‘natish uchun mavjud SMS lar</h3>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Qarzdor</th>
+                            <th>Telefon raqami</th>
+                            <th>SMS matni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sms in sms_list %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ sms.qarzdor_fish }}</td>
+                            <td>{{ sms.telefon_raqami }}</td>
+                            <td>
+                                {% with sms_text=sms.debitorsendget_set.first %}
+                                    {{ sms_text.sms_text|default:"Mavjud emas" }}
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">📭 Jo‘natish uchun hech qanday SMS mavjud emas</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+# SMS END

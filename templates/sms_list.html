@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block send_sms1 %}
+
+<div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Qarizdardin' F.I.SH</th>
+                                <th>SMS texist</th>
+                                <th>Jaratilg'an sa'nesi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for sms in sms_list %}
+                            <tr>
+                                <td>{{ sms.debitor.qarzdor_fish }}</td>
+                                <td>{{ sms.sms_text }}</td>
+                                <td>{{ sms.created_at }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+
+</div>
+
+{% endblock send_sms1 %}
+

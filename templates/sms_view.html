@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block send_list %}
+<div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <h2>📩 Jeberilgen SMSlerdin' dizimi</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>FIO</th>
+                            <th>Telefon</th>
+                            <th>SMS Mazmuni</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sms in sms_list %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ sms.debitor.fio }}</td>
+                            <td>{{ sms.debitor.phone }}</td>
+                            <td>{{ sms.mazmuni }}</td>
+                            <td>
+                                {% if sms.status %}
+                                    ✅ Jeberildi
+                                {% else %}
+                                    ⏳ Kutiwde
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                </div>
+</div>
+{% endblock send_list %}
+

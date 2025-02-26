@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block generate_list %}
+<div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <h2>📩 Generatsiya qiling'an dizimi</h2>
+
+                    <!-- SMS yaratish tugmasi -->
+                    <a href="{% url 'generate_sms' %}" class="btn btn-primary mb-3">📩 SMSlerdi jaratiw</a>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ijro Ish Raqami</th>
+                                <th>Ijro Hujjat Raqami</th>
+                                <th>Ijro Hujjat Mazmuni</th>
+                                <th>Ijro Hujjati Summasi</th>
+                                <th>Qarzdor F.I.SH</th>
+                                <th>Telefon Raqami</th>
+                                <th>Operator F.I.SH</th>
+                                <th>Operator Telefon Raqami</th>
+                                <th>SMS Matni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for debitor in debitors %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ debitor.ijro_ish_raqami }}</td>
+                                <td>{{ debitor.ijro_hujjat_raqami }}</td>
+                                <td>{{ debitor.ijro_hujjat_mazmuni }}</td>
+                                <td>{{ debitor.ijro_hujjat_summasi }}</td>
+                                <td>{{ debitor.qarzdor_fish }}</td>
+                                <td>{{ debitor.telefon_raqami }}</td>
+                                <td>{{ debitor.operator_fish }}</td>
+                                <td>{{ debitor.operator_telefon_raqami }}</td>
+                                <td>
+                                    <textarea rows="4" class="form-control" readonly>{{ debitor.sms_text }}</textarea>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+</div>
+{% endblock generate_list %}
+

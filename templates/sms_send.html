@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block telegram_send %}
+<div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <h2>📨 SMS Jeberiw</h2>
+                </div>
+
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+
+                <form method="POST" action="{% url 'send_sms_from_debitors' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">📤 SMS Jeberiw</button>
+                </form>
+
+
+            <h3>📋 Jeberiw ge tayin turg'an smsler</h3>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Qarizdar</th>
+                            <th>Telefon nomer</th>
+                            <th>SMS text</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sms in sms_list %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ sms.qarzdor_fish }}</td>
+                            <td>{{ sms.telefon_raqami }}</td>
+                            <td>
+                                {% with sms_text=sms.debitorsendget_set.first %}
+                                    {{ sms_text.sms_text|default:"malumat kelip tuspedi" }}
+                                {% endwith %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">📭 Jeberiw ushin hesh qanday smsler ko'rinbedi</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+
+</div>
+{% endblock telegram_send %}
+

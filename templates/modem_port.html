@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block create_sms %}
+    <section class="container">
+            <div class="row justify-content-around text-center text-white mt-5">
+                <div class="col-sm-8">
+                    <h3>USB modem port ko'rsetiw bo'limi</h3>
+                </div>
+            </div>
+            <div class="row justify-content-around mt-3">
+                <div class="col-sm-12">
+<!--                    <a href="#" class="btn btn-primary float-end">Add</a>-->
+            {% if port %}
+                <div class="alert alert-success">
+                    📡 Huawei USB Modem islep turg'an port: <strong>{{ port }}</strong>
+                </div>
+            {% else %}
+                <div class="alert alert-danger">
+                    ❌ Huawei USB Modem tabilmadi!
+                </div>
+            {% endif %}
+
+                </div>
+            </div>
+
+
+
+
+
+        </section>
+{% endblock create_sms %}
