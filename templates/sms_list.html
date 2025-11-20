@@ -7,16 +7,16 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Qarizdardin' F.I.SH</th>
                                 <th>SMS texist</th>
+                                <th>Telefon nomerler</th>
                                 <th>Jaratilg'an sa'nesi</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for sms in sms_list %}
                             <tr>
-                                <td>{{ sms.debitor.qarzdor_fish }}</td>
                                 <td>{{ sms.sms_text }}</td>
+                                <td>{{ sms.telefon_raqami }}</td>
                                 <td>{{ sms.created_at }}</td>
                             </tr>
                             {% endfor %}

@@ -92,3 +92,114 @@
                 </table>
 
 # SMS END
+
+
+<!-- SMS natijalari -->
+{% if sent_sms %}
+<h4>✅ Yuborilgan SMSlar:</h4>
+<ul>
+    {% for sms in sent_sms %}
+        <li>📩 {{ sms.phone_number }}: {{ sms.sms_text }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if failed_sms %}
+<h4>❌ Xato bo‘lgan SMSlar:</h4>
+<ul>
+    {% for sms in failed_sms %}
+        <li>⚠️ {{ sms.phone_number }}: {{ sms.sms_text }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if invalid_sms %}
+<h4>⚠️ Noto‘g‘ri formatdagi SMSlar:</h4>
+<ul>
+    {% for sms in invalid_sms %}
+        <li>❌ {{ sms.phone_number }}: {{ sms.sms_text }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% endif %}
+
+
+                <!-- SMS Jo‘natish tugmasi -->
+<!--                <form id="sms-form">-->
+<!--                    {% csrf_token %}-->
+<!--                    <button type="button" id="send-sms-btn" class="btn btn-primary" onclick="sendSMS()">📤 SMS Jiberiw</button>-->
+<!--                </form>-->
+<!--            <h3>📋 Jeberiw ge tayin turg'an smsler</h3>-->
+<!--                <table border="1">-->
+<!--                    <thead>-->
+<!--                        <tr>-->
+<!--                            <th>#</th>-->
+<!--                            <th>Telefon nomer</th>-->
+<!--                            <th>SMS text</th>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                        {% for sms in sms_list %}-->
+<!--                        <tr>-->
+<!--                            <td>{{ forloop.counter }}</td>-->
+<!--                            <td>{{ sms.telefon_raqami }}</td>-->
+<!--                            <td>{{ sms.sms_text }}</td>-->
+<!--                        </tr>-->
+<!--                        {% empty %}-->
+<!--                        <tr>-->
+<!--                            <td colspan="4">📭 Jeberiw ushin hesh qanday smsler ko'rinbedi</td>-->
+<!--                        </tr>-->
+<!--                        {% endfor %}-->
+<!--                    </tbody>-->
+<!--                </table>-->
+
+
+
+<!--    &lt;!&ndash; Jo‘natilmagan SMSlar jadvali &ndash;&gt;-->
+<!--        {% if failed_sms_list %}-->
+<!--        <h3 style="color: red;">❌ Yuborilmagan SMSlar:</h3>-->
+<!--        <table border="1">-->
+<!--            <thead>-->
+<!--                <tr>-->
+<!--                    <th>Telefon raqam</th>-->
+<!--                    <th>SMS matni</th>-->
+<!--                    <th>Holat</th>-->
+<!--                </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--                {% for sms in failed_sms_list %}-->
+<!--                <tr style="color: red;">-->
+<!--                    <td>{{ sms.phone_number }}</td>-->
+<!--                    <td>{{ sms.sms_text }}</td>-->
+<!--                    <td>{{ sms.status }}</td>-->
+<!--                </tr>-->
+<!--                {% endfor %}-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--        {% endif %}-->
+
+<!--    &lt;!&ndash; Yuborilgan SMSlar ro‘yxati &ndash;&gt;-->
+<!--    {% if sent_sms_list %}-->
+<!--    <h3 style="color: green;">✅ Yuborilgan SMSlar:</h3>-->
+<!--    <table border="1">-->
+<!--        <thead>-->
+<!--            <tr>-->
+<!--                <th>Telefon raqam</th>-->
+<!--                <th>SMS matni</th>-->
+<!--                <th>Holat</th>-->
+<!--            </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--            {% for sms in sent_sms_list %}-->
+<!--            <tr style="color: green;">-->
+<!--                <td>{{ sms.phone_number }}</td>-->
+<!--                <td>{{ sms.sms_text }}</td>-->
+<!--                <td>{{ sms.status }}</td>-->
+<!--            </tr>-->
+<!--            {% endfor %}-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--    {% endif %}-->

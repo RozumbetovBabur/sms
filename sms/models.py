@@ -75,3 +75,13 @@ class DebitorSendGet(models.Model):
     debitor_sms = models.ForeignKey(DebitorSms, on_delete=models.CASCADE)
     sms_text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class DebitorSendGetSMS(models.Model):
+    debitor_sms = models.ForeignKey(DebitorSms, on_delete=models.CASCADE)
+    telefon_raqami = models.CharField(max_length=20)  # Telefon raqam qo‘shildi
+    sms_text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.telefon_raqami} -> {self.sms_text[:30]}..."

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block sms_delete %}
+
+<div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <h2>📩 Modemnin' o'shiriw bo'limi</h2>
+                    <form action="{% url 'clear_modem_sms' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">🗑️ Modemdagi SMS'larni tozalash</button>
+                    </form>
+
+                    <!-- Xabarlarni ko‘rsatish -->
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li class="{{ message.tags }}">{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+
+
+                </div>
+
+</div>
+
+{% endblock sms_delete %}
+

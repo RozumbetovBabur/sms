@@ -19,3 +19,4 @@ admin.site.register(CreateSMS)
 admin.site.register(DebitorSms)
 
 admin.site.register(DebitorSendGet)
+admin.site.register(DebitorSendGetSMS)

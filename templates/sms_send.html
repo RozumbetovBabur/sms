@@ -3,51 +3,124 @@
 {% block telegram_send %}
 <div class="row justify-content-around mt-4 text-center">
                 <div class="col-sm-12">
-                    <h2>📨 SMS Jeberiw</h2>
+                    <h2>📨 SMS Jiberiw</h2>
                 </div>
 
-                {% for message in messages %}
-                    <div class="alert alert-{% if message.tags == 'success' %}success{% else %}danger{% endif %}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
+<!-- Progress bar -->
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Progress Bar</h6>
+                            <div class="pg-bar mb-3">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                                         style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        0%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!-- jQuery kutubxonasi -->
 
 
-                <form method="POST" action="{% url 'send_sms_from_debitors' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary">📤 SMS Jeberiw</button>
-                </form>
+<!-- SMS Jo‘natish tugmasi -->
+<form id="send_sms_form" method="POST">
+    {% csrf_token %}
+    <button id="send_sms_button" class="btn btn-primary mt-5">📤 SMS Jo‘natish</button>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function getCSRFToken() {
+    let token = document.querySelector("input[name=csrfmiddlewaretoken]");
+    return token ? token.value : "";
+}
 
+$(document).ready(function () {
+    $("#send_sms_button").click(function (e) {
+        e.preventDefault();
+        $("#send_sms_button").hide();
+        $(".progress-bar").css("width", "0%").text("0%");
+        $("#sms_result").html("");  // 📌 Eski natijalarni o‘chiramiz
 
-            <h3>📋 Jeberiw ge tayin turg'an smsler</h3>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Qarizdar</th>
-                            <th>Telefon nomer</th>
-                            <th>SMS text</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for sms in sms_list %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ sms.qarzdor_fish }}</td>
-                            <td>{{ sms.telefon_raqami }}</td>
-                            <td>
-                                {% with sms_text=sms.debitorsendget_set.first %}
-                                    {{ sms_text.sms_text|default:"malumat kelip tuspedi" }}
-                                {% endwith %}
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="4">📭 Jeberiw ushin hesh qanday smsler ko'rinbedi</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        $.ajax({
+            type: "POST",
+            url: "/send_sms_from_debitors/",
+            data: { csrfmiddlewaretoken: getCSRFToken() },
+            success: function (data) {
+                if (data.success) {
+                    checkProgress();
+                } else {
+                    alert("❌ Xatolik: " + data.error);
+                    $("#send_sms_button").show();
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("❌ Server xatosi: " + error);
+                $("#send_sms_button").show();
+            }
+        });
+    });
+
+    function checkProgress() {
+        $.get("/get_sms_progress/")
+            .done(function (data) {
+                let total = data.total || 0;
+                let sent = data.sent || 0;
+                let percentage = total > 0 ? Math.round((sent / total) * 100) : 0;
+
+                $(".progress-bar").css("width", percentage + "%").text(percentage + "%");
+
+                if (!data.completed) {
+                    setTimeout(checkProgress, 2000);
+                } else {
+                    $(".progress-bar").css("width", "100%").text("100% ✅");
+                    $("#send_sms_button").show();
+
+                    // 📌 SMS natijalarini chiqaramiz
+                    let resultHtml = `<h4>📊 SMS Jo‘natish Natijalari:</h4>`;
+                    resultHtml += `<p>✅ Muvaffaqiyatli jo‘natilgan SMSlar: <b>${data.successful_sms || 0}</b></p>`;
+
+                    // ✅ Jo‘natilgan SMSlar ro‘yxati
+                    if (Array.isArray(data.sent_sms) && data.sent_sms.length > 0) {
+                        resultHtml += `<h5>📤 Jo‘natilgan SMSlar:</h5><ul>`;
+                        data.sent_sms.forEach(sms => {
+                            resultHtml += `<li><b>📞 Telefon:</b> ${sms.phone_number} | <b>✉️ Matn:</b> ${sms.sms_text}</li>`;
+                        });
+                        resultHtml += `</ul>`;
+                    }
+
+                    if (Array.isArray(data.failed_sms) && data.failed_sms.length > 0) {
+                    resultHtml += `<p>❌ Xatolik bilan jo‘natilgan SMSlar: <b>${data.failed_sms.length}</b></p>`;
+                    resultHtml += `<h5>❌ Xatolik yuz bergan SMSlar:</h5><ul>`;
+                    data.failed_sms.forEach(sms => {
+                        resultHtml += `<li><b>📞 Telefon:</b> ${sms.phone_number} | <b>✉️ Matn:</b> ${sms.sms_text} | <b>📛 Status:</b> ${sms.status}</li>`;
+                    });
+                    resultHtml += `</ul>`;
+                }
+
+                // ❌ Noto‘g‘ri formatdagi SMSlar
+                if (Array.isArray(data.invalid_sms) && data.invalid_sms.length > 0) {
+                    resultHtml += `<p>⚠️ Noto‘g‘ri formatdagi SMSlar: <b>${data.invalid_sms.length}</b></p>`;
+                    resultHtml += `<h5>⚠️ Xato formatdagi SMSlar:</h5><ul>`;
+                    data.invalid_sms.forEach(sms => {
+                        resultHtml += `<li><b>📞 Telefon:</b> ${sms.phone_number} | <b>✉️ Matn:</b> ${sms.sms_text} | <b>📛 Status:</b> ${sms.status}</li>`;
+                    });
+                    resultHtml += `</ul>`;
+                } else {
+                    resultHtml += `<p>✅ Barcha SMSlar to‘g‘ri formatda edi!</p>`;
+                }
+
+                $("#sms_result").html(resultHtml);
+            }
+           })
+           .fail(function (xhr, status, error) {
+               alert("❌ Ma'lumot olishda xatolik: " + error);
+               $("#send_sms_button").show();
+           });
+    }
+});
+
+</script>
+
+    <div id="sms_result" class="mt-3">📊 SMS natijalari shu yerda chiqadi...</div>
 
 
 

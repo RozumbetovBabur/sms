@@ -67,7 +67,7 @@
                     <a href="{% url 'generate-list' %}" class="nav-item nav-link"><i class="fas fa-sms me-2"></i>Generatsiya etilgenlerdi ko'riw</a>
                     <a href="{% url 'send_sms_from_debitors' %}" class="nav-item nav-link"><i class="fas fa-sms me-2"></i>SMS jeberiw Generatsiya qilg'anlardi</a>
 
-                    <a href="{% url 'create_sms' %}" class="nav-item nav-link"><i class="fas fa-sms me-2"></i>Smslerdi jaratiw</a>
+                    <a href="{% url 'clear_modem_sms' %}" class="nav-item nav-link"><i class="fas fa-sms me-2"></i>Modem delete</a>
                     <a href="{% url 'modem_port' %}" class="nav-item nav-link"><i class="fas fa-usb me-2"></i>Modem qosiw</a>
 
                 </div>
@@ -133,6 +133,9 @@
                 {% block telegram_send %}
                 {% endblock telegram_send %}
 
+                {% block sms_delete %}
+                {% endblock sms_delete %}
+
 
 
 
@@ -148,21 +151,21 @@
 
 
             <!-- Footer Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-light rounded-top p-4">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-                        </div>
-                        <div class="col-12 col-sm-6 text-center text-sm-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                        </br>
-                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="container-fluid pt-4 px-4">-->
+<!--                <div class="bg-light rounded-top p-4">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-12 col-sm-6 text-center text-sm-start">-->
+<!--                            &copy; <a href="#">Your Site Name</a>, All Right Reserved.-->
+<!--                        </div>-->
+<!--                        <div class="col-12 col-sm-6 text-center text-sm-end">-->
+<!--                            &lt;!&ndash;/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/&ndash;&gt;-->
+<!--                            Designed By <a href="https://htmlcodex.com">HTML Codex</a>-->
+<!--                        </br>-->
+<!--                        Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <!-- Footer End -->
         </div>
         <!-- Content End -->
@@ -185,6 +188,14 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+
+
 
 
 </body>
